@@ -6,7 +6,9 @@
 
 **[Open the live demo →](https://theleverager1705.github.io/niyantraai-iqoo-hackathon/)**
  · no signup, click *Explore Dashboard*
+
 **[Read the technical documentation (PDF) →](docs/NiyantraAI-Documentation.pdf)**
+ · **[Download the presentation deck (PPT) →](docs/NiyantraAI-Presentation.pptx)**
 
 NiyantraAI measures whether a developer's AI usage is turning into genuine
 understanding. It does not count AI requests and it never recommends using AI
