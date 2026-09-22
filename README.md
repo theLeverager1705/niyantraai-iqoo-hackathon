@@ -4,6 +4,9 @@
 
 > Build with AI. Understand what you build.
 
+**[Open the live demo →](https://theleverager1705.github.io/niyantraai-iqoo-hackathon/)**
+ · no signup, click *Explore Dashboard*
+
 NiyantraAI measures whether a developer's AI usage is turning into genuine
 understanding. It does not count AI requests and it never recommends using AI
 less. It measures the part where your own reasoning drops out of the loop.
