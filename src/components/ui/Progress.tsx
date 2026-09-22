@@ -7,27 +7,41 @@ function prefersReducedMotion(): boolean {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
+/** True when the animation should be skipped entirely rather than played. */
+function shouldSkipAnimation(): boolean {
+  if (prefersReducedMotion()) return true;
+  // requestAnimationFrame does not fire in a backgrounded tab, so a page
+  // opened in the background would otherwise sit on 0 until it is focused.
+  return typeof document !== 'undefined' && document.visibilityState === 'hidden';
+}
+
 export function useCountUp(target: number, duration = 900): number {
-  const [value, setValue] = useState(prefersReducedMotion() ? target : 0);
+  const [value, setValue] = useState(() => (shouldSkipAnimation() ? target : 0));
   const frame = useRef<number>();
 
   useEffect(() => {
-    if (prefersReducedMotion()) {
+    if (shouldSkipAnimation()) {
       setValue(target);
       return;
     }
+
     const start = performance.now();
-    const from = 0;
     const tick = (now: number) => {
       const t = Math.min(1, (now - start) / duration);
       // easeOutCubic
       const eased = 1 - (1 - t) ** 3;
-      setValue(from + (target - from) * eased);
+      setValue(target * eased);
       if (t < 1) frame.current = requestAnimationFrame(tick);
     };
     frame.current = requestAnimationFrame(tick);
+
+    // Safety net: whatever happens to the frame loop (throttling, the tab
+    // being hidden mid-animation), the number always lands on its real value.
+    const settle = window.setTimeout(() => setValue(target), duration + 400);
+
     return () => {
       if (frame.current) cancelAnimationFrame(frame.current);
+      window.clearTimeout(settle);
     };
   }, [target, duration]);
 
