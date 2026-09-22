@@ -1,0 +1,20 @@
+{
+  "name": "NiyantraAI",
+  "short_name": "NiyantraAI",
+  "description": "Intelligent AI Dependency Regulation System",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#07080b",
+  "theme_color": "#07080b",
+  "categories": ["developer", "productivity", "education"],
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

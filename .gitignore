@@ -1,0 +1,8 @@
+node_modules
+dist
+scripts/.calibrate.cjs
+.DS_Store
+*.local
+.env
+.env.local
+.vite

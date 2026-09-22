@@ -1,0 +1,151 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    --ring: rgba(124, 140, 255, 0.55);
+  }
+
+  * {
+    border-color: theme('colors.hairline');
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-canvas text-ink font-sans antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'ss01';
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  /* Visible, consistent keyboard focus everywhere. */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  ::selection {
+    background: rgba(124, 140, 255, 0.32);
+  }
+
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+    border: 3px solid transparent;
+    background-clip: content-box;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.16);
+    background-clip: content-box;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@layer components {
+  .panel {
+    @apply rounded-2xl border border-hairline bg-surface shadow-card;
+  }
+
+  .panel-quiet {
+    @apply rounded-xl border border-hairline bg-raised;
+  }
+
+  .hairline-t {
+    @apply border-t border-hairline;
+  }
+
+  .label-caps {
+    @apply text-2xs font-medium uppercase tracking-[0.12em] text-ink-faint;
+  }
+
+  .num {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+
+  /* Ambient background used on the landing page and app shell. */
+  .aurora::before {
+    content: '';
+    position: absolute;
+    inset: -30% -10% auto -10%;
+    height: 70vh;
+    background:
+      radial-gradient(48% 55% at 22% 12%, rgba(124, 140, 255, 0.16), transparent 62%),
+      radial-gradient(42% 48% at 78% 4%, rgba(76, 201, 240, 0.12), transparent 60%),
+      radial-gradient(38% 44% at 52% 30%, rgba(63, 207, 142, 0.08), transparent 66%);
+    filter: blur(6px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .grid-fade {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: radial-gradient(70% 55% at 50% 22%, #000 10%, transparent 78%);
+    -webkit-mask-image: radial-gradient(70% 55% at 50% 22%, #000 10%, transparent 78%);
+  }
+
+  .shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+  .shimmer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.06),
+      transparent
+    );
+    animation: sweep 1.6s ease-in-out infinite;
+  }
+
+  .prose-answer p {
+    @apply mb-2 last:mb-0;
+  }
+}
+
+@layer utilities {
+  .stack-anim > * {
+    animation: fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .stack-anim > *:nth-child(1) { animation-delay: 0.02s; }
+  .stack-anim > *:nth-child(2) { animation-delay: 0.06s; }
+  .stack-anim > *:nth-child(3) { animation-delay: 0.1s; }
+  .stack-anim > *:nth-child(4) { animation-delay: 0.14s; }
+  .stack-anim > *:nth-child(5) { animation-delay: 0.18s; }
+  .stack-anim > *:nth-child(6) { animation-delay: 0.22s; }
+  .stack-anim > *:nth-child(7) { animation-delay: 0.26s; }
+  .stack-anim > *:nth-child(8) { animation-delay: 0.3s; }
+
+  .safe-bottom {
+    padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 0.5rem);
+  }
+}
